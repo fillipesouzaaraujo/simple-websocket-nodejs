@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Socket</title>
+
+	<script type="text/javascript">
+		const toBase64 = async file => new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = error => reject(error);
+		});
+
+		const ws = new WebSocket('ws://localhost:8080');
+		// A classe `WebSocket` nos navegadores tem uma sintaxe um pouco diferente de `ws`
+		// Ao invés da sintax de EventEmmiter `on('open')`, você adiciona um callback
+		// a propriedade `onopen`.
+		ws.onopen = function() {
+			document.querySelector('#send').disabled = false;
+			document.querySelector('#send').addEventListener('click', function() {
+
+				var input = document.querySelector('#imageScan');
+				var file = input.files[0];
+				toBase64(file).then(result => {
+					ws.send(JSON.stringify({
+						base64: result,
+						type: file.type,
+						name: file.name,
+						size: file.size
+					}));
+				});
+			});
+		};
+		ws.onmessage = function(msg) {
+			var text = '';
+			msg.data.text().then(a => {
+				text = a;
+				document.querySelector('#messages').innerHTML += `<div>${text}</div>`;
+			});
+		};
+	</script>
+</head>
+
+<body>
+	<h1>Scanner</h1>
+	<div>
+		<input type="file" id="imageScan" placeholder="Imagem" />
+		<br>
+		<br>
+		<input id="message" placeholder="Message">
+		<button id="send" disabled="true">Send</button>
+	</div>
+	<div id="messages">
+	</div>
+</body>
+
+</html>
