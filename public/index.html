@@ -12,14 +12,16 @@
 			reader.onerror = error => reject(error);
 		});
 
-		const ws = new WebSocket('ws://localhost:8080');
+		const ws = new WebSocket('ws://localhost:9099/message/1.0.0?access_token=eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBelpHUXpOR00wWkdSbE5qSmtPREZrWkRSaU9URmtNV0ZoTXpVMlpHVmxOZyIsImtpZCI6Ik16WXhNbUZrT0dZd01XSTBaV05tTkRjeE5HWXdZbU00WlRBM01XSTJOREF6WkdRek5HTTBaR1JsTmpKa09ERmtaRFJpT1RGa01XRmhNelUyWkdWbE5nX1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJhZG1pbkBjYXJib24uc3VwZXIiLCJhdWQiOiJaRGVBYlFmenhuTDFPQmxUVUNOWWhTT0ZkMGdhIiwibmJmIjoxNjYzODY1OTgwLCJhenAiOiJaRGVBYlFmenhuTDFPQmxUVUNOWWhTT0ZkMGdhIiwic2NvcGUiOiJhbV9hcHBsaWNhdGlvbl9zY29wZSBkZWZhdWx0IiwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo5NDQzXC9vYXV0aDJcL3Rva2VuIiwiZXhwIjoxNjYzODY5NTgwLCJpYXQiOjE2NjM4NjU5ODAsImp0aSI6IjVlYzcwZWUxLWRkZmEtNGVhOC04YzQxLTFiOTdmMGUxMmNlMiJ9.Glv49WiK22ti5GMUuy7W01wwFtQOXBTj4aQnvYeHQuEPmbQ2Qp0StqD_1FiBPxXw33HzYVq77MLPWGPJEilvnmEoy4Qyc1X9wYPQ9VVEi3u8sDN7DHy9W2mB44H9LzbXWxa6PFS7zvhYDJ1DLpYKuCHhFFxSML_dIIx9g5CNurKa2S1xUPKw93GjXIjTw924ziuBfVAeS_6BeIJhXQaWjL2sliXM8gEIsUKRHC9KczR0bua8GbeFllk2K2Eqv8a1usK8-khSQIwAs2ZUWuOfiTq4SttUqvIkhP2aYSpmMbY8XtoCkJasuORBjclybOFiRu9od_cLelSNGlc2m1m6Gg');
+		// const ws = new WebSocket('ws://localhost:8080');
 		// A classe `WebSocket` nos navegadores tem uma sintaxe um pouco diferente de `ws`
 		// Ao invés da sintax de EventEmmiter `on('open')`, você adiciona um callback
 		// a propriedade `onopen`.
-		ws.onopen = function() {
+		// 
+		// wscat -c "ws://localhost:9099/message/1.0.0?access_token=eyJ4NXQiOiJNell4TW1Ga09HWXdNV0kwWldObU5EY3hOR1l3WW1NNFpUQTNNV0kyTkRBelpHUXpOR00wWkdSbE5qSmtPREZrWkRSaU9URmtNV0ZoTXpVMlpHVmxOZyIsImtpZCI6Ik16WXhNbUZrT0dZd01XSTBaV05tTkRjeE5HWXdZbU00WlRBM01XSTJOREF6WkdRek5HTTBaR1JsTmpKa09ERmtaRFJpT1RGa01XRmhNelUyWkdWbE5nX1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJhZG1pbkBjYXJib24uc3VwZXIiLCJhdWQiOiJaRGVBYlFmenhuTDFPQmxUVUNOWWhTT0ZkMGdhIiwibmJmIjoxNjYzODY1OTgwLCJhenAiOiJaRGVBYlFmenhuTDFPQmxUVUNOWWhTT0ZkMGdhIiwic2NvcGUiOiJhbV9hcHBsaWNhdGlvbl9zY29wZSBkZWZhdWx0IiwiaXNzIjoiaHR0cHM6XC9cL2xvY2FsaG9zdDo5NDQzXC9vYXV0aDJcL3Rva2VuIiwiZXhwIjoxNjYzODY5NTgwLCJpYXQiOjE2NjM4NjU5ODAsImp0aSI6IjVlYzcwZWUxLWRkZmEtNGVhOC04YzQxLTFiOTdmMGUxMmNlMiJ9.Glv49WiK22ti5GMUuy7W01wwFtQOXBTj4aQnvYeHQuEPmbQ2Qp0StqD_1FiBPxXw33HzYVq77MLPWGPJEilvnmEoy4Qyc1X9wYPQ9VVEi3u8sDN7DHy9W2mB44H9LzbXWxa6PFS7zvhYDJ1DLpYKuCHhFFxSML_dIIx9g5CNurKa2S1xUPKw93GjXIjTw924ziuBfVAeS_6BeIJhXQaWjL2sliXM8gEIsUKRHC9KczR0bua8GbeFllk2K2Eqv8a1usK8-khSQIwAs2ZUWuOfiTq4SttUqvIkhP2aYSpmMbY8XtoCkJasuORBjclybOFiRu9od_cLelSNGlc2m1m6Gg"
+		ws.onopen = function () {
 			document.querySelector('#send').disabled = false;
-			document.querySelector('#send').addEventListener('click', function() {
-
+			document.querySelector('#send').addEventListener('click', function () {
 				var input = document.querySelector('#imageScan');
 				var file = input.files[0];
 				toBase64(file).then(result => {
@@ -31,12 +33,17 @@
 					}));
 				});
 			});
+
+
+			document.querySelector('#sendMessage').disabled = false;
+			document.querySelector('#sendMessage').addEventListener('click', function () {
+				ws.send(JSON.stringify({ text: document.querySelector('#textMessage').value }));
+			});
 		};
-		ws.onmessage = function(msg) {
-			var text = '';
+
+		ws.onmessage = function (msg) {
 			msg.data.text().then(a => {
-				text = a;
-				document.querySelector('#messages').innerHTML += `<div>${text}</div>`;
+				console.log(a);
 			});
 		};
 	</script>
@@ -49,7 +56,14 @@
 		<br>
 		<br>
 		<input id="message" placeholder="Message">
-		<button id="send" disabled="true">Send</button>
+		<button id="send" disabled="true" type="button">Send</button>
+	</div>
+	<div id="messages">
+	</div>
+	<h1>Send a simple message</h1>
+	<div>
+		<input id="textMessage" placeholder="Message">
+		<button id="sendMessage" type="button" disabled="true">Send Message</button>
 	</div>
 	<div id="messages">
 	</div>

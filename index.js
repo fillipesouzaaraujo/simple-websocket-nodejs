@@ -15,6 +15,8 @@ const wss = new WebSocket.Server({ server });
 let sockets = [];
 wss.on('connection', function (socket) {
 
+  console.log('Connected node');
+
   sockets.push(socket);
 
   socket.on('message', function (msg) {
